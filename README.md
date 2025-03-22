@@ -1,4 +1,4 @@
-Unchain Protocol v1.0.0
+Unchain Protocol
 ------
 
 An implementation library of the WabiSabi protocol for .NET.
