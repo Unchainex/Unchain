@@ -1,0 +1,5 @@
+namespace Unchain.CredentialRequesting;
+
+public record ZeroCredentialsRequestData(
+	ZeroCredentialsRequest CredentialsRequest,
+	CredentialsResponseValidation CredentialsResponseValidation);
