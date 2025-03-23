@@ -14,7 +14,7 @@
       <None Include="../README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
 <ItemGroup>
-	<None Include="icon.png" Pack="true" PackagePath=""/>
+	<None Include="../icon.png" Pack="true" PackagePath=""/>
 	<PackageTags>bitcoin</PackageTags>
 	<PackageTags>coinjoin</PackageTags>
 </ItemGroup>
