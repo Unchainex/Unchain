@@ -22,7 +22,7 @@
         Unchain library implements the Unchain protocol to allow issuing KVAC and operate with them.
     </description>	
 	<PackageTags>bitcoin,coinjoin,unchain</PackageTags>
-	<PackageIcon>icon.png</PackageIcon>
+	<PackageIcon>..\icon.png</PackageIcon>
     <summary>Library to allow using the Unchain protocol.</summary>
     <language>en-US</language>
     <copyright>Please see LICENSE for more details.</copyright>
