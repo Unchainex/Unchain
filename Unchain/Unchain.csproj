@@ -15,8 +15,6 @@
   </ItemGroup>
 <ItemGroup>
 	<None Include="../icon.png" Pack="true" PackagePath=""/>
-	<PackageTags>bitcoin</PackageTags>
-	<PackageTags>coinjoin</PackageTags>
 </ItemGroup>
   <PropertyGroup>
     <PackageId>Unchain</PackageId>
@@ -25,6 +23,8 @@
     <description>
         Unchain library implements the Unchain protocol to allow issuing KVAC and operate with them.
     </description>	
+	<PackageTags>bitcoin</PackageTags>
+	<PackageTags>coinjoin</PackageTags>
     <summary>Library to allow using the Unchain protocol.</summary>
     <language>en-US</language>
     <copyright>Please see LICENSE for more details.</copyright>
