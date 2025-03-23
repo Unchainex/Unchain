@@ -13,9 +13,7 @@
       <None Include="../LICENSE" Pack="true" PackagePath=""/>
       <None Include="../README.md" Pack="true" PackagePath=""/>
   </ItemGroup>
-<ItemGroup>
-	<None Include="../icon.png" Pack="true" PackagePath=""/>
-</ItemGroup>
+<PackageIcon>icon.png</PackageIcon>
   <PropertyGroup>
     <PackageId>Unchain</PackageId>
     <projectUrl>https://github.com/Unchainex/Unchain</projectUrl>
@@ -23,8 +21,7 @@
     <description>
         Unchain library implements the Unchain protocol to allow issuing KVAC and operate with them.
     </description>	
-	<PackageTags>bitcoin</PackageTags>
-	<PackageTags>coinjoin</PackageTags>
+	<PackageTags>bitcoin,coinjoin,unchain</PackageTags>
     <summary>Library to allow using the Unchain protocol.</summary>
     <language>en-US</language>
     <copyright>Please see LICENSE for more details.</copyright>
