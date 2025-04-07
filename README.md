@@ -10,6 +10,4 @@ A [simplified explainer](./explainer.md) with an informal description by
 analogy using real world concepts is also provided.
 
 For more information on how the credential scheme can be applied, we also
-describe a [generic protocol](./protocol.md) (work in progress).
-
-Details of the specific transaction structure are still TBD.
+describe a [generic protocol](./protocol.md).
