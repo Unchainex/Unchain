@@ -1,0 +1,128 @@
+@startuml
+collections Satoshis
+participant Coordinator
+participant Alice1
+participant Alice2
+participant Bob
+database Mempool
+
+title Scenario: A Participant Is Consolidating 2 Coins (Alice1, Alice2) Into 1 (Bob)\n
+
+== Input Registration ==
+
+Satoshis -> Coordinator ++ : GET coordinator-status
+return RoundStatuses[]
+
+Alice1 -> Coordinator ++: POST inputs-registration: RoundId, (Input, RoundParamSig)[], ZeroCredReqs[]
+note right of Coordinator
+    IsRoundFound()
+    IsInputRegistrationPhase()
+    AllUnspent()
+    AllConfirmed()
+    AllMature()
+    AllStandardScript()
+    AllNotMalleable()
+    CheckRoundParamSigs()
+    AllAllowedIfBlameRound()
+    AllNotBanned()
+    UpdateIfDuplicateInput()
+    SetAliceDeadline()
+end note
+return AliceId, ZeroCreds[]
+...
+
+Alice1 -> Coordinator ++: POST connection-confirmation: RoundId, AliceId, RealCredReqs[], ZeroCredReqs[]
+note right of Coordinator
+    IsRoundFound()
+    IsInputRegistrationOrConnectionConfirmationPhase()
+    IsAliceFound()
+    EnsureUniqueSerialNumber()
+    CheckCredProofs()
+    ResetAliceDeadline()
+end note
+return ZeroCreds[]
+
+Alice2 -> Coordinator ++: POST inputs-registration: RoundId, (Input, RoundParamSig)[], ZeroCredReqs[]
+note right of Coordinator
+    IsRoundFound()
+    IsInputRegistrationPhase()
+    AllUnspent()
+    AllConfirmed()
+    AllMature()
+    AllStandardScript()
+    AllNotMalleable()
+    CheckRoundParamSigs()
+    AllAllowedIfBlameRound()
+    AllNotBanned()
+    UpdateIfDuplicateInput()
+    SetAliceDeadline()
+end note
+return AliceId, ZeroCreds[]
+
+== Connection Confirmation ==
+
+Alice1 -> Coordinator ++: POST connection-confirmation: RoundId, AliceId, RealCredReqs[], ZeroCredReqs[]
+note right of Coordinator
+    IsRoundFound()
+    IsInputRegistrationOrConnectionConfirmationPhase()
+    IsAliceFound()
+    EnsureUniqueSerialNumber()
+    CheckCredProofs()
+end note
+return RealCreds[], ZeroCreds[]
+
+Alice2 -> Coordinator ++: POST connection-confirmation: RoundId, AliceId, RealCredReqs[], ZeroCredReqs[]
+note right of Coordinator
+    IsRoundFound()
+    IsInputRegistrationOrConnectionConfirmationPhase()
+    IsAliceFound()
+    EnsureUniqueSerialNumber()
+    CheckCredProofs()
+end note
+return RealCreds[], ZeroCreds[]
+
+== Output Registration ==
+
+Bob -> Coordinator ++: POST output-registration: RoundId, Output, PresentedCreds[]
+note right of Coordinator
+    IsRoundFound()
+    IsOutputRegistrationPhase()
+    IsStandardScript()
+    EnsureUniqueSerialNumber()
+    CheckCredProofs()
+end note
+return UnsignedTransactionSecret
+
+== Transaction Signing ==
+
+Satoshis -> Coordinator ++ : coordinator-status
+return RoundStatuses[]
+
+Alice1 -> Coordinator ++: POST transaction-signatures: RoundId, AliceId, (Input, Signature)[]
+note right of Coordinator
+    IsRoundFound()
+    IsTransactionSigningPhase()
+    IsAliceFound()
+    CheckInputSignatures()
+    UpdateIfAlreadySigned()
+end note
+return ACK
+
+Alice2 -> Coordinator ++: POST transaction-signatures: RoundId, AliceId, (Input, Signature)[]
+note right of Coordinator
+    IsRoundFound()
+    IsTransactionSigningPhase()
+    IsAliceFound()
+    CheckInputSignatures()
+    UpdateIfAlreadySigned()
+end note
+return ACK
+
+== Transaction Broadcasting ==
+
+Coordinator -> Mempool**  : SignedTransaction
+
+Satoshis -> Coordinator ++ : coordinator-status
+return RoundStatuses[]
+
+@enduml
