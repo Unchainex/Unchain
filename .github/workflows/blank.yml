@@ -14,7 +14,7 @@ jobs:
         with:
           root_file: main.tex
       - name: LaTeX output artifact
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: LaTeX Output
           path: main.pdf
